@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import TextField from '../Shared/TextField'
 import DropDownField from '../Shared/DropDownField'
 import PhoneNumberField from '../Shared/PhoneNumberField'
 
-export default () => (
+export default ({ toggleBetweenUIs }) => (
   <div style={{ width: '100vw', height: '100vh' }}>
     <div
       style={{
@@ -13,6 +14,9 @@ export default () => (
         paddingTop: '2%'
       }}
     >
+      <div style={{ width: '100px', margin: 'auto' }}>
+        <DefaultButton text="Toggle UI" onClick={toggleBetweenUIs} />
+      </div>
       <h3 style={{ paddingBottom: '2%', textAlign: 'center' }}>User Registration Page</h3>
       <div className="row">
         <div className="row">

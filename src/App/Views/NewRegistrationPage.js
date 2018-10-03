@@ -1,11 +1,12 @@
 import React from 'react'
 
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 import TextField from '../Shared/TextField'
 import DropDownField from '../Shared/DropDownField'
 import PhoneNumberField from '../Shared/PhoneNumberField'
 import badgeSVG from './id-badge-solid.svg'
 
-export default () => (
+export default ({ toggleBetweenUIs }) => (
   <div style={{ width: '100vw', height: '100vh', background: 'rgba(225,115,0,0.5)' }}>
     <div
       style={{
@@ -14,7 +15,10 @@ export default () => (
         paddingTop: '2%'
       }}
     >
-      <h3 style={{ paddingBottom: '2%', textAlign: 'center' }}>User Registration Page (Updated UI)</h3>
+      <div style={{ width: '100px', margin: 'auto' }}>
+        <DefaultButton text="Toggle UI" onClick={toggleBetweenUIs} />
+      </div>
+      <h3 style={{ paddingBottom: '2%', textAlign: 'center' }}>User Registration Page</h3>
       <div style={{ display: 'flex' }}>
         <div style={{ flex: '0.3', float: 'left' }}>
           <img src={badgeSVG} alt="Registration Icon" style={{ padding: '2% 13%', height: '250px', width: '250px' }} />

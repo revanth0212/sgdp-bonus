@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
+import app from './App'
 import fields from './Fields'
 
 export default asyncReducer => {
   const appReducer = combineReducers({
+    app,
     fields,
     ...asyncReducer
   })
