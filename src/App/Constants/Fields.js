@@ -46,7 +46,7 @@ export default {
     placeholder: 'Phone Number'
   },
   phoneNumberCode: {
-    label: 'Country Code',
+    label: 'Code',
     placeholder: 'Code'
   }
 }
