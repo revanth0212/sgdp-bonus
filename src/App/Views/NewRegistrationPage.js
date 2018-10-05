@@ -1,5 +1,4 @@
 import React from 'react'
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
 
 import badgeSVG from './id-badge-solid.svg'
 
