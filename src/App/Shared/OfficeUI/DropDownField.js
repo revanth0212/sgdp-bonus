@@ -1,25 +1,26 @@
 import React from 'react'
-import { TextField as OriginalTextField } from 'office-ui-fabric-react/lib/TextField'
+import { Dropdown as OriginalDropdown } from 'office-ui-fabric-react/lib/Dropdown'
 import { connect } from 'react-redux'
-import { pathOr } from 'ramda'
+import { pathOr, values } from 'ramda'
 
-import { updateFieldValue } from '../Actions/Fields'
-import FieldConstants from '../Constants/Fields'
+import { updateFieldValue } from '../../Actions/Fields'
+import FieldConstants from '../../Constants/Fields'
 
-const onFieldChangeHandler = (updateFieldValue, onChange) => value => {
+const onFieldChangeHandler = (updateFieldValue, onChange) => ({ key: value }) => {
   updateFieldValue(value)
   if (onChange) {
     onChange(value)
   }
 }
 
-const TextField = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => (
-  <OriginalTextField
+const Dropdown = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => (
+  <OriginalDropdown
     {...FieldConstants[name]}
     {...configuration}
     {...otherProps}
     name={name}
     onChanged={onFieldChangeHandler(updateFieldValue, onChange(name))}
+    options={values(configuration.options || FieldConstants[name].options || {})}
   />
 )
 
@@ -34,4 +35,4 @@ const mapDispatchToProps = (dispatch, { name, path }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TextField)
+)(Dropdown)
