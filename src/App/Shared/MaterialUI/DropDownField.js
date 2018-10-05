@@ -1,7 +1,7 @@
 import React from 'react'
-import { Dropdown as OriginalDropdown } from 'office-ui-fabric-react/lib/Dropdown'
+import OriginalDropdown from 'material-ui/AutoComplete'
 import { connect } from 'react-redux'
-import { pathOr, values } from 'ramda'
+import { pathOr, values, compose, filter, head, propOr, propEq } from 'ramda'
 
 import { updateFieldValue } from '../../Actions/Fields'
 import FieldConstants from '../../Constants/Fields'
@@ -13,16 +13,35 @@ const onFieldChangeHandler = (updateFieldValue, onChange) => ({ key: value }) =>
   }
 }
 
-const Dropdown = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => (
-  <OriginalDropdown
-    {...FieldConstants[name]}
-    {...configuration}
-    {...otherProps}
-    name={name}
-    onChanged={onFieldChangeHandler(updateFieldValue, onChange(name))}
-    options={values(configuration.options || FieldConstants[name].options || {})}
-  />
-)
+const Dropdown = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => {
+  const finalProps = {
+    ...FieldConstants[name],
+    ...configuration,
+    ...otherProps
+  }
+  const dataSource = values(configuration.options || FieldConstants[name].options || {})
+  const searchText = compose(
+    propOr('', 'text'),
+    head,
+    filter(propEq('key', finalProps.value))
+  )(dataSource)
+  return (
+    <OriginalDropdown
+      {...finalProps}
+      fullWidth
+      openOnFocus
+      name={name}
+      placeholder=""
+      searchText={searchText}
+      filter={OriginalDropdown.noFilter}
+      floatingLabelText={finalProps.label}
+      errorText={finalProps.required ? 'This field is required' : ''}
+      onNewRequest={onFieldChangeHandler(updateFieldValue, onChange(name))}
+      dataSource={dataSource}
+      dataSourceConfig={{ text: 'key', value: 'text' }}
+    />
+  )
+}
 
 const mapStateToProps = (state, { path = [] }) => ({
   configuration: pathOr({}, path, state)

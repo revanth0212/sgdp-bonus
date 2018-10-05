@@ -19,7 +19,7 @@ export default ({ toggleBetweenUIs, renderMUIComponents, toggleBetweenSharedComp
   const PhoneNumberField = renderMUIComponents ? MUIPhoneNumberField : OUIPhoneNumberField
   const Button = renderMUIComponents ? MUIButton : OUIButton
   return (
-    <div style={{ width: '100vw', height: '100vh', background: 'rgba(225,115,0,0.5)' }}>
+    <div style={{ width: '100vw', height: '100vh' }}>
       <div
         style={{
           margin: 'auto',

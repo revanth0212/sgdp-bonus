@@ -1,27 +1,36 @@
 import React from 'react'
-import { TextField as OriginalTextField } from 'office-ui-fabric-react/lib/TextField'
+import OriginalTextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
 import { pathOr } from 'ramda'
 
 import { updateFieldValue } from '../../Actions/Fields'
 import FieldConstants from '../../Constants/Fields'
 
-const onFieldChangeHandler = (updateFieldValue, onChange) => value => {
+const onFieldChangeHandler = (updateFieldValue, onChange) => (_, value) => {
   updateFieldValue(value)
   if (onChange) {
     onChange(value)
   }
 }
 
-const TextField = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => (
-  <OriginalTextField
-    {...FieldConstants[name]}
-    {...configuration}
-    {...otherProps}
-    name={name}
-    onChanged={onFieldChangeHandler(updateFieldValue, onChange(name))}
-  />
-)
+const TextField = ({ configuration, name, path, onChange = () => {}, updateFieldValue, ...otherProps }) => {
+  const finalProps = {
+    ...FieldConstants[name],
+    ...configuration,
+    ...otherProps
+  }
+  return (
+    <OriginalTextField
+      {...finalProps}
+      fullWidth
+      name={name}
+      placeholder=""
+      floatingLabelText={finalProps.label}
+      errorText={finalProps.required ? 'This field is required' : ''}
+      onChange={onFieldChangeHandler(updateFieldValue, onChange(name))}
+    />
+  )
+}
 
 const mapStateToProps = (state, { path = [] }) => ({
   configuration: pathOr({}, path, state)
