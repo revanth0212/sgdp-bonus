@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button'
-import TextField from '../Shared/TextField'
-import DropDownField from '../Shared/DropDownField'
-import PhoneNumberField from '../Shared/PhoneNumberField'
+import TextField from '../Shared/OfficeUI/TextField'
+import DropDownField from '../Shared/OfficeUI/DropDownField'
+import PhoneNumberField from '../Shared/OfficeUI/PhoneNumberField'
 
 export default ({ toggleBetweenUIs }) => (
   <div style={{ width: '100vw', height: '100vh' }}>
